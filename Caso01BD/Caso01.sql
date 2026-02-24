@@ -1,18 +1,16 @@
-/*Se crea la base de datos solicitada 2 ptos*/
-CREATE DATABASE CasoEstudio01
-  DEFAULT CHARACTER SET utf8mb4
-  DEFAULT COLLATE utf8mb4_unicode_ci;
 
-/*Se crea un usuario para la base de datos 2 ptos*/
+DROP DATABASE IF EXISTS esquemaBD01;
+CREATE DATABASE esquemaBD01;
+USE esquemaBD01;
 
+
+DROP USER IF EXISTS 'juan32'@'localhost';
 CREATE USER 'juan32'@'localhost' IDENTIFIED BY '504660819';
-
-/*Se asignan todos los privilegios sobre la base de datos solicitada al usuario creado 2 ptos*/
 
 GRANT ALL PRIVILEGES ON esquemaBD01.* TO 'juan32'@'localhost';
 FLUSH PRIVILEGES;
 
-/* Se crea la tabla solicitada 2 ptos*/
+DROP TABLE IF EXISTS articulo;
 
 CREATE TABLE articulo (
     id_articulo INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,7 +20,6 @@ CREATE TABLE articulo (
     imagen_articulo VARCHAR(1024)
 );
 
-/*Se insertan 4 registros en la tabla solicitada 2ptos */
 
 INSERT INTO articulo (detalle, cantidad, fecha_vence, imagen_articulo) VALUES
 ('Cemento', 25, '2026-12-31', 'https://ejemplo.com/img/cemento.png'),

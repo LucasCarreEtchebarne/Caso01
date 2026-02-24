@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <section th:fragment="listado" class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="m-0" th:text="#{articulo.listado}">Listado de Artículos</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th th:text="#{articulo.id}">ID</th>
+                                <th th:text="#{articulo.detalle}">Detalle</th>
+                                <th th:text="#{articulo.cantidad}">Cantidad</th>
+                                <th th:text="#{articulo.fechaVence}">Fecha vence</th>
+                                <th th:text="#{articulo.imagen}">Imagen</th>
+                                <th th:text="#{articulo.acciones}">Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="a : ${articulos}">
+                                <td th:text="${a.idArticulo}">1</td>
+                                <td th:text="${a.detalle}">Detalle</td>
+                                <td th:text="${a.cantidad}">0</td>
+                                <td th:text="${a.fechaVence}">2026-01-01</td>
+
+                                <td>
+                                    <span th:text="${a.imagenArticulo}">img</span>
+                                </td>
+
+                                <td class="text-center">
+                                    
+                                    <a class="btn btn-sm btn-warning"
+                                       th:href="@{/articulo/modificar/{id}(id=${a.idArticulo})}">
+                                        <span th:text="#{accion.modificar}">Modificar</span>
+                                    </a>
+
+                                    <a class="btn btn-sm btn-danger"
+                                       th:href="@{/articulo/eliminar/{id}(id=${a.idArticulo})}">
+                                        <span th:text="#{accion.eliminar}">Eliminar</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <a class="btn btn-outline-secondary" th:href="@{/}">
+                        <span th:text="#{accion.regresar}">Regresar</span>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="editarRegistro" class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="m-0" th:text="#{articulo.editar}">Modificar Artículo</h4>
+                </div>
+
+                <div class="card-body">
+                    <form th:action="@{/articulo/guardar}"
+                          th:object="${articulo}"
+                          method="post">
+
+                        <!-- ID (oculto) -->
+                        <input type="hidden" th:field="*{idArticulo}" />
+
+                        <div class="mb-3">
+                            <label class="form-label" th:text="#{articulo.detalle}">Detalle</label>
+                            <input type="text" class="form-control" th:field="*{detalle}" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" th:text="#{articulo.cantidad}">Cantidad</label>
+                            <input type="number" class="form-control" th:field="*{cantidad}" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" th:text="#{articulo.fechaVence}">Fecha vence</label>
+                            <input type="text" class="form-control" th:field="*{fechaVence}" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" th:text="#{articulo.imagen}">Imagen</label>
+                            <input type="text" class="form-control" th:field="*{imagenArticulo}" />
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            <span th:text="#{accion.guardar}">Guardar</span>
+                        </button>
+
+                        <a class="btn btn-outline-secondary" th:href="@{/articulo/listado}">
+                            <span th:text="#{accion.regresar}">Regresar</span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </body>
+</html>
